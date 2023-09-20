@@ -140,7 +140,7 @@ function closeChatBubble() {
       "enableConversationDeletion": true
   });
   
-function simulateBotpressButtonClick() {
+  function simulateBotpressButtonClick() {
     var botpressButton = document.querySelector('.bpw-widget-btn');
     if (botpressButton) {
         botpressButton.click();
@@ -165,7 +165,9 @@ function simulateBotpressButtonClick() {
     event.stopPropagation();
   });
 
-  document.querySelector('.bpw-widget-btn').addEventListener('click', hideChatBubble);
+  window.botpressWebChat.on('webchatOpened', function() {
+    hideChatBubble();
+  });
 </script>
 </body>
 </html>
