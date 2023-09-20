@@ -141,33 +141,31 @@ function closeChatBubble() {
   });
   
 function simulateBotpressButtonClick() {
-    // Find the Botpress chat widget button by its class or ID (this might vary based on your Botpress version or setup)
-    var botpressButton = document.querySelector('.bpw-widget-btn'); // This is a guess, you might need to inspect the Botpress button to get the correct class or ID
-
-    // Simulate a click on the Botpress button
+    var botpressButton = document.querySelector('.bpw-widget-btn');
     if (botpressButton) {
         botpressButton.click();
     }
+    hideChatBubble();
+  }
 
-    // Hide the chat bubble
+  function hideChatBubble() {
     document.getElementById('chat-bubble').style.display = 'none';
-}
+  }
 
-function closeChatBubble() {
+  function closeChatBubble() {
     document.getElementById('chat-bubble').style.display = 'none';
-}
+  }
 
-  // Show the chat bubble after 5 seconds
   setTimeout(function() {
     document.getElementById('chat-bubble').style.display = 'block';
-  }, 1000); // changed to 5 seconds
+  }, 5000); // Show the chat bubble after 5 seconds
 
-  // Event to close the chat bubble
   document.getElementById('close-button').addEventListener('click', function(event) {
-    document.getElementById('chat-bubble').style.display = 'none';
-    event.stopPropagation(); // Prevents the chat bubble click event from being triggered
+    closeChatBubble();
+    event.stopPropagation();
   });
 
+  document.querySelector('.bpw-widget-btn').addEventListener('click', hideChatBubble);
 </script>
 </body>
 </html>
