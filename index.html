@@ -15,7 +15,7 @@
       width: 150px; /* Adjust based on your image's dimensions */
       height: 150px; /* Adjust based on your image's dimensions */
       background: url('https://i.postimg.cc/jSFgMCjb/Projekti-Poista-tausta-5.png') no-repeat center center; /* Replace 'path_to_your_image.jpg' with your image path */
-      background-color: yellow;
+      background-color: grey;
       background-size: cover;
       cursor: pointer;
     }
@@ -140,7 +140,7 @@ function closeChatBubble() {
       "enableConversationDeletion": true
   });
   
-  function simulateBotpressButtonClick() {
+function simulateBotpressButtonClick() {
     var botpressButton = document.querySelector('.bpw-widget-btn');
     if (botpressButton) {
         botpressButton.click();
@@ -165,9 +165,24 @@ function closeChatBubble() {
     event.stopPropagation();
   });
 
-  window.botpressWebChat.on('webchatOpened', function() {
-    hideChatBubble();
-  });
+  function setupObserver() {
+    const chatWidget = document.querySelector('.bpw-widget-btn');
+    if (!chatWidget) return;
+
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === "class" && chatWidget.classList.contains('bpw-widget-open')) {
+                hideChatBubble();
+            }
+        });
+    });
+
+    observer.observe(chatWidget, {
+        attributes: true
+    });
+  }
+
+  setupObserver();
 </script>
 </body>
 </html>
